@@ -1,33 +1,54 @@
-import React from 'react'
-import { useState } from 'react'
-import './BookCreate.css'
-const BookCreate = ({onCreate}) => {
-  const [title, setTitle] = useState('title')
-  const [des, setDes] = useState('description')
-  const handlChangeTitle = (e) => {
+import { useState } from 'react';
+import './BookCreate.css';
+
+const BookCreate = ({ onCreate }) => {
+  const [title, setTitle] = useState('');
+  const [des, setDes] = useState('');
+
+  const handleChangeTitle = (e) => {
     setTitle(e.target.value);
-}
-const handlChangeDes = (e) => {
-  setDes(e.target.value);
-}
-const handleSubmit = (e) => {
+  };
+
+  const handleChangeDes = (e) => {
+    setDes(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const reps = onCreate({
+    onCreate({
       title,
       des,
-    })
-}
+    });
+    setTitle(''); 
+    setDes(''); 
+  };
+
   return (
     <div className='form-create'>
       <h3>Add a book</h3>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="">Title</label>
-        <input onChange={handlChangeTitle} type="text" id="title" name="title"/>
-        <input onChange={handlChangeDes} type="text" id="des" name="des"/>
-        <input type="submit" value="Create!"/>
-    </form>
+        <label htmlFor="title">Title</label>
+        <input
+          onChange={handleChangeTitle}
+          type="text"
+          id="title"
+          name="title"
+          placeholder='Nhập Title'
+          value={title} 
+        />
+        <label htmlFor="des">Des</label>
+        <input
+          onChange={handleChangeDes}
+          type="text"
+          id="des"
+          name="des"
+          placeholder='Nhập Des'
+          value={des}
+        />
+        <input type="submit" value="Create!" />
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default BookCreate
+export default BookCreate;
